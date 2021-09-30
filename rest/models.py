@@ -1,8 +1,23 @@
 from django.contrib.auth.models import User
 from django.db import models
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 from django.urls import reverse
+
+
+class Owner(models.Model):
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        verbose_name="User",
+    )
+    image = models.ImageField(null=True, blank=True, upload_to="images/owners")
+    phone = models.CharField(max_length=20)
+    bio = RichTextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.user.get_full_name()
 
 
 class Dog(models.Model):
@@ -12,7 +27,7 @@ class Dog(models.Model):
     weight = models.CharField(max_length=255)
     birthday = models.DateField()
     anniversary = models.DateField(auto_now_add=True)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    owner = models.ForeignKey(Owner, on_delete=models.CASCADE)
     image = models.ImageField(null=True, blank=True, upload_to="images/dog-profiles")
 
     def __str__(self):
@@ -20,3 +35,9 @@ class Dog(models.Model):
 
     def get_absolute_url(self):
         return reverse('dog-detail', args=(str(self.id)))
+
+
+class Activity(models.Model):
+    participants = models.ManyToManyField(Owner)
+    location = models.CharField(max_length=255)
+    startTime = models.DateTimeField()
