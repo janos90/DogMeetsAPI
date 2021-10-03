@@ -31,7 +31,7 @@ class Dog(models.Model):
     image = models.ImageField(null=True, blank=True, upload_to="images/dog-profiles")
 
     def __str__(self):
-        return self.name + " " + self.breed
+        return self.name + " the " + self.breed
 
     def get_absolute_url(self):
         return reverse('dog-detail', args=(str(self.id)))
@@ -39,5 +39,6 @@ class Dog(models.Model):
 
 class Activity(models.Model):
     participants = models.ManyToManyField(Owner)
+    dogs = models.ManyToManyField(Dog)
     location = models.CharField(max_length=255)
     startTime = models.DateTimeField()

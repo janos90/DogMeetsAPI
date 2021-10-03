@@ -11,10 +11,10 @@ class DogSerializer(serializers.ModelSerializer):
 class OwnerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Owner
-        fields = ['id', 'name', 'breed', 'height', 'weight', 'birthday', 'anniversary', 'owner', 'image']
+        fields = ['id', 'user', 'image', 'phone', 'bio']
 
 
 class ActivitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Activity
-        fields = ['id', 'name', 'breed', 'height', 'weight', 'birthday', 'anniversary', 'owner', 'image']
+        fields = ['id', 'participants', 'dogs', 'location', 'startTime']
