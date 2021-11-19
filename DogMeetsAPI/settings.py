@@ -109,8 +109,12 @@ WSGI_APPLICATION = 'DogMeetsAPI.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'd4vdlcabfvtqkl',
+        'USER': 'fbeznoiknkleav',
+        'PASSWORD': '2d9d1a5ba731f943a987cf2fd94e52e7582194304eb3930aa8c821c5d9b38f2d',
+        'HOST': 'ec2-52-54-23-130.compute-1.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
