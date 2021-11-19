@@ -69,21 +69,6 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'DogMeetsAPI.urls'
 
-# CORS_ALLOWED_ORIGINS = [
-#     # "http://localhost:8000/",
-#     "http://localhost:4200",
-#     "http://127.0.0.1:4200"
-#
-# ]
-#
-# CORS_ALLOW_HEADERS = ('content-disposition', 'accept-encoding',
-#                       'content-type', 'accept', 'origin', 'authorization', 'access-control-allow-origin')
-#
-# CSRF_TRUSTED_ORIGINS = [
-#     'http://127.0.0.1:4200',
-#     'localhost:4200'
-# ]
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
