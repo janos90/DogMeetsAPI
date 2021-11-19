@@ -12,7 +12,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from rest.models import Dog, Owner, Activity
-from rest.serializers import DogSerializer, UserSerializer
+from rest.serializers import DogSerializer, UserSerializer, ActivitySerializer, OwnerSerializer
 
 
 def Index(request):
@@ -22,8 +22,8 @@ def Index(request):
 class DogViewSet(viewsets.ModelViewSet):
     queryset = Dog.objects.all()
     serializer_class = DogSerializer
-    permission_classes = [IsAuthenticated]
-    authentication_classes = (TokenAuthentication,)
+    # permission_classes = [IsAuthenticated]
+    # authentication_classes = (TokenAuthentication,)
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -33,9 +33,9 @@ class UserViewSet(viewsets.ModelViewSet):
 
 class OwnerViewSet(viewsets.ModelViewSet):
     queryset = Owner.objects.all()
-    serializer_class = UserSerializer
+    serializer_class = OwnerSerializer
 
 
 class ActivityViewSet(viewsets.ModelViewSet):
     queryset = Activity.objects.all()
-    serializer_class = UserSerializer
+    serializer_class = ActivitySerializer

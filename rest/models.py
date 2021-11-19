@@ -38,7 +38,13 @@ class Dog(models.Model):
 
 
 class Activity(models.Model):
-    participants = models.ManyToManyField(Owner)
-    dogs = models.ManyToManyField(Dog)
     location = models.CharField(max_length=255)
     startTime = models.DateTimeField()
+
+    dogs = models.ManyToManyField(Dog, blank=True)
+    participants = models.ManyToManyField(Owner, related_name='activities', blank=True)
+    organiser_id = models.ForeignKey(Owner,
+                                     on_delete=models.CASCADE,
+                                     related_name='myActivities',
+                                     related_query_name="activity"
+                                     )

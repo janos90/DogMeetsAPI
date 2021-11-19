@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
@@ -9,9 +11,9 @@ router = DefaultRouter()
 router.register('dogs', DogViewSet, basename='dogs')
 router.register('users', UserViewSet)
 router.register('owners', OwnerViewSet, basename='owners')
-router.register('activities', ActivityViewSet, basename='events')
+router.register('activities', ActivityViewSet, basename='activities')
 
 urlpatterns = [
     path('', Index),
     path('api/', include(router.urls))
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -37,4 +37,4 @@ class OwnerSerializer(serializers.ModelSerializer):
 class ActivitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Activity
-        fields = ['id', 'participants', 'dogs', 'location', 'startTime']
+        fields = ['id', 'participants', 'dogs', 'location', 'startTime', 'organiser_id']
