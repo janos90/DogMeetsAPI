@@ -6,7 +6,7 @@ from ckeditor.fields import RichTextField
 from django.urls import reverse
 
 
-class Owner(models.Model):
+class Profile(models.Model):
     user = models.OneToOneField(
         User,
         on_delete=models.CASCADE,
@@ -14,10 +14,11 @@ class Owner(models.Model):
     )
     image = models.ImageField(null=True, blank=True, upload_to="images/owners")
     phone = models.CharField(max_length=20)
-    bio = RichTextField(blank=True, null=True)
+    bio = models.TextField()
+
 
     def __str__(self):
-        return self.user.get_full_name()
+        return str(self.user)
 
 
 class Dog(models.Model):
@@ -27,7 +28,7 @@ class Dog(models.Model):
     weight = models.CharField(max_length=255)
     birthday = models.DateField()
     anniversary = models.DateField(auto_now_add=True)
-    owner = models.ForeignKey(Owner, on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     image = models.ImageField(null=True, blank=True, upload_to="images/dog-profiles")
 
     def __str__(self):
@@ -42,8 +43,8 @@ class Activity(models.Model):
     startTime = models.DateTimeField()
 
     dogs = models.ManyToManyField(Dog, blank=True)
-    participants = models.ManyToManyField(Owner, related_name='activities', blank=True)
-    organiser_id = models.ForeignKey(Owner,
+    participants = models.ManyToManyField(User, related_name='activities', blank=True)
+    organiser_id = models.ForeignKey(User,
                                      on_delete=models.CASCADE,
                                      related_name='myActivities',
                                      related_query_name="activity"

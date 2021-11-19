@@ -1,40 +1,51 @@
 from rest_framework import serializers
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from rest_framework.authtoken.models import Token
 
-from .models import Dog, Owner, Activity
+from .models import Dog, Profile, Activity
+
+
+class GroupSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Group
+        fields = '__all__'
 
 
 class UserSerializer(serializers.ModelSerializer):
+    groups = GroupSerializers(many=True, required=False)
+
     class Meta:
         model = User
-        fields = ['id', 'username', 'password', 'first_name', 'last_name']
+        fields = ['id', 'username', 'password', 'groups']
 
-        extra_kwargs = {'password': {
-            'write_only': True,
-            'required': True
-        }}
+        extra_kwargs = {
+            'password': {
+                'write_only': True,
+                'required': True
+            }
+        }
 
     def create(self, validated_data):
         user = User.objects.create_user(**validated_data)
+        user.groups.add(1)
         Token.objects.create(user=user)
-        Owner.objects.create(user=user)
+        Profile.objects.create(user=user)
         return user
 
 
 class DogSerializer(serializers.ModelSerializer):
     class Meta:
         model = Dog
-        fields = ['id', 'name', 'breed', 'height', 'weight', 'birthday', 'anniversary', 'owner', 'image']
+        fields = '__all__'
 
 
-class OwnerSerializer(serializers.ModelSerializer):
+class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Owner
-        fields = ['id', 'user', 'image', 'phone', 'bio']
+        model = Profile
+        fields = '__all__'
 
 
 class ActivitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Activity
-        fields = ['id', 'participants', 'dogs', 'location', 'startTime', 'organiser_id']
+        fields = '__all__'

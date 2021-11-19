@@ -3,14 +3,14 @@ from django.conf.urls.static import static
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
-from rest.views import Index, DogViewSet, UserViewSet, OwnerViewSet, ActivityViewSet
+from rest.views import Index, DogViewSet, UserViewSet, ProfileViewSet, ActivityViewSet
 
 # from rest.views import DogList, DogDetails
 
 router = DefaultRouter()
 router.register('dogs', DogViewSet, basename='dogs')
 router.register('users', UserViewSet)
-router.register('owners', OwnerViewSet, basename='owners')
+router.register('owners', ProfileViewSet, basename='owners')
 router.register('activities', ActivityViewSet, basename='activities')
 
 urlpatterns = [
