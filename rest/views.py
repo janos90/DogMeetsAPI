@@ -5,7 +5,7 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
 from rest.models import Dog, Profile, Activity
-from rest.permissions import IsOwnerOrReadOnly, IsOwner
+from rest.permissions import IsOwnerOrReadOnly, UserPermission
 from rest.serializers import DogSerializer, UserSerializer, ActivitySerializer, ProfileSerializer
 
 
@@ -23,6 +23,8 @@ class DogViewSet(viewsets.ModelViewSet):
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes = (UserPermission,)
+    authentication_classes = (TokenAuthentication,)
 
 
 class ProfileViewSet(viewsets.ModelViewSet):

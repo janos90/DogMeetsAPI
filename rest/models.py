@@ -16,7 +16,6 @@ class Profile(models.Model):
     phone = models.CharField(max_length=20)
     bio = models.TextField()
 
-
     def __str__(self):
         return str(self.user)
 
@@ -44,8 +43,8 @@ class Activity(models.Model):
 
     dogs = models.ManyToManyField(Dog, blank=True)
     participants = models.ManyToManyField(User, related_name='activities', blank=True)
-    organiser_id = models.ForeignKey(User,
-                                     on_delete=models.CASCADE,
-                                     related_name='myActivities',
-                                     related_query_name="activity"
-                                     )
+    owner = models.ForeignKey(User,
+                              on_delete=models.CASCADE,
+                              related_name='myActivities',
+                              related_query_name="activity"
+                              )
