@@ -1,1 +1,1 @@
-web: gunicorn DogMeetsAPI.wsgi
+web: gunicorn djangoSimpleBlogAPI.wsgi
