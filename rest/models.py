@@ -38,6 +38,7 @@ class Dog(models.Model):
 
 
 class Activity(models.Model):
+    name = models.CharField(max_length=255)
     location = models.CharField(max_length=255)
     startTime = models.DateTimeField()
 
