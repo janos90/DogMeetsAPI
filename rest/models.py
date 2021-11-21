@@ -41,6 +41,7 @@ class Activity(models.Model):
     name = models.CharField(max_length=255)
     location = models.CharField(max_length=255)
     startTime = models.DateTimeField()
+    description = models.TextField()
 
     dogs = models.ManyToManyField(Dog, blank=True)
     participants = models.ManyToManyField(User, related_name='activities', blank=True)
