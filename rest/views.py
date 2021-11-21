@@ -15,6 +15,7 @@ from rest.serializers import DogSerializer, UserSerializer, ActivitySerializer, 
 def Index(request):
     return HttpResponse("This is the index for an API")
 
+
 class getUser(APIView):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
@@ -55,12 +56,13 @@ class ActivityViewSet(viewsets.ModelViewSet):
 class attendEvent(APIView):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
+
     def patch(self, request):
         userid = request.data["user_id"]
-        activityid = request.data["post_id"]
+        activity_id = request.data["activity_id"]
         user = User.objects.get(id=userid)
-        activity = Activity.objects.get(id=activityid)
-        if (activity.participants.add(user)):
+        activity = Activity.objects.get(id=activity_id)
+        if activity.participants.add(user):
             # send_mail(
             #     'Subject here',
             #     'Here is the message.',
@@ -73,16 +75,18 @@ class attendEvent(APIView):
             return Response(status=HTTP_200_OK)
 
         return Response(status=HTTP_400_BAD_REQUEST)
+
 
 class disAttendEvent(APIView):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
+
     def patch(self, request):
         userid = request.data["user_id"]
-        activityid = request.data["post_id"]
+        activity_id = request.data["activity_id"]
         user = User.objects.get(id=userid)
-        activity = Activity.objects.get(id=activityid)
-        if (activity.participants.remove(user)):
+        activity = Activity.objects.get(id=activity_id)
+        if activity.participants.remove(user):
             # send_mail(
             #     'Subject here',
             #     'Here is the message.',
@@ -95,4 +99,3 @@ class disAttendEvent(APIView):
             return Response(status=HTTP_200_OK)
 
         return Response(status=HTTP_400_BAD_REQUEST)
-
