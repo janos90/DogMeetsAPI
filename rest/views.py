@@ -6,6 +6,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from django.core.mail import send_mail
 
 from rest.models import Dog, Profile, Activity
 from rest.permissions import IsOwnerOrReadOnly, UserPermission
@@ -63,13 +64,15 @@ class attendEvent(APIView):
         user = User.objects.get(id=userid)
         activity = Activity.objects.get(id=activity_id)
         if activity.participants.add(user):
-            # send_mail(
-            #     'Subject here',
-            #     'Here is the message.',
-            #     'songl08@wairaka.com',
-            #     ['gabriel_sl19798@hotmail.com'],
-            #     fail_silently=False,
-            # )
+            if user.email:
+                send_mail(
+                    'New activity',
+                    'This is a message to confirm that '+user.first_name+' has been added to a new activity.',
+                    'lsong@unitec.ac.nz',
+                    [user.email],
+                    fail_silently=False
+                )
+
             activity.save()
 
             return Response(status=HTTP_200_OK)
@@ -87,13 +90,14 @@ class disAttendEvent(APIView):
         user = User.objects.get(id=userid)
         activity = Activity.objects.get(id=activity_id)
         if activity.participants.remove(user):
-            # send_mail(
-            #     'Subject here',
-            #     'Here is the message.',
-            #     'songl08@wairaka.com',
-            #     ['gabriel_sl19798@hotmail.com'],
-            #     fail_silently=False,
-            # )
+            if user.email:
+                send_mail(
+                    'New activity',
+                    'This is a message to confirm that ' + user.first_name + ' has been added to a new activity.',
+                    'lsong@unitec.ac.nz',
+                    [user.email],
+                    fail_silently=False
+                )
             activity.save()
 
             return Response(status=HTTP_200_OK)

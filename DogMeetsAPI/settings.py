@@ -152,3 +152,10 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 django_heroku.settings(locals())
+
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'apikey' # this is exactly the value 'apikey'
+EMAIL_HOST_PASSWORD = "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"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
