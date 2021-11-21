@@ -16,26 +16,26 @@ def Index(request):
 class DogViewSet(viewsets.ModelViewSet):
     queryset = Dog.objects.all()
     serializer_class = DogSerializer
-    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
-    authentication_classes = (TokenAuthentication,)
+    # permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
+    # authentication_classes = (TokenAuthentication,)
 
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = (UserPermission,)
-    authentication_classes = (TokenAuthentication,)
+    # permission_classes = (UserPermission,)
+    # authentication_classes = (TokenAuthentication,)
 
 
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
-    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
-    authentication_classes = (TokenAuthentication,)
+    # permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
+    # authentication_classes = (TokenAuthentication,)
 
 
 class ActivityViewSet(viewsets.ModelViewSet):
     queryset = Activity.objects.all()
     serializer_class = ActivitySerializer
-    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
-    authentication_classes = (TokenAuthentication,)
+    # permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
+    # authentication_classes = (TokenAuthentication,)
