@@ -43,8 +43,11 @@ class UserViewSet(viewsets.ModelViewSet):
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
+
     # permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
     # authentication_classes = (TokenAuthentication,)
+    def perform_update(self, serializer):
+        serializer.save(user=self.request.user)
 
 
 class ActivityViewSet(viewsets.ModelViewSet):
@@ -67,7 +70,7 @@ class attendEvent(APIView):
             if user.email:
                 send_mail(
                     'New activity',
-                    'This is a message to confirm that '+user.first_name+' has been added to a new activity.',
+                    'This is a message to confirm that ' + user.first_name + ' has been added to a new activity.',
                     'lsong@unitec.ac.nz',
                     [user.email],
                     fail_silently=False
