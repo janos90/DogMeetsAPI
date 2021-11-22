@@ -46,8 +46,8 @@ class ProfileViewSet(viewsets.ModelViewSet):
 
     # permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
     # authentication_classes = (TokenAuthentication,)
-    def perform_update(self, serializer):
-        serializer.save(user=self.request.user)
+    # def perform_update(self, serializer):
+    #     serializer.save(user=self.request.user)
 
 
 class ActivityViewSet(viewsets.ModelViewSet):
