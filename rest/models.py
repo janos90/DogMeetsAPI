@@ -39,7 +39,11 @@ class Dog(models.Model):
 
 class Activity(models.Model):
     name = models.CharField(max_length=255)
+
     location = models.CharField(max_length=255)
+    lat = models.DecimalField(max_digits=9, decimal_places=6)
+    lng = models.DecimalField(max_digits=9, decimal_places=6)
+
     startTime = models.DateTimeField()
     description = models.TextField()
 
