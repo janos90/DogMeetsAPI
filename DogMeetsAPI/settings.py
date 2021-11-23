@@ -44,14 +44,25 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest',
     'rest_framework',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'dj_rest_auth.registration',
+
 ]
+
+SITE_ID = 1
 
 REST_FRAMEWORK = {
     # 'DEFAULT_PERMISSION_CLASSES': [
     #     'rest_framework.permissions.IsAuthenticated',
     #     # 'rest_framework.permissions.AllowAny',
     # ]
+}
+
+REST_AUTH_SERIALIZERS = {
+    'PASSWORD_RESET_SERIALIZER': 'rest.serializers.CustomPasswordResetSerializer'
 }
 
 MIDDLEWARE = [
@@ -158,4 +169,12 @@ EMAIL_HOST_USER = 'apikey' # this is exactly the value 'apikey'
 EMAIL_HOST_PASSWORD = "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"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'your.email.host'
+# EMAIL_USE_TLS = True
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = 'your email host user'
+# EMAIL_HOST_PASSWORD = 'your email host password'
+#
 

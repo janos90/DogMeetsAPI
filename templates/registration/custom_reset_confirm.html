@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Confirm reset password</title>
+</head>
+<body>
+
+<h2>Hello this is a reset</h2>
+{{ site_name }}
+
+{{ protocol }}://{{domain }}{% url 'password_reset_confirm' uidb64=uid token=token %}
+</body>
+</html>

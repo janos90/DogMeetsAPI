@@ -1,3 +1,4 @@
+from dj_rest_auth.serializers import PasswordResetSerializer
 from rest_framework import serializers
 from django.contrib.auth.models import User, Group
 from rest_framework.authtoken.models import Token
@@ -49,3 +50,10 @@ class ActivitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Activity
         fields = '__all__'
+
+
+class CustomPasswordResetSerializer(PasswordResetSerializer):
+    def get_email_options(self):
+        return {
+            'html_email_template_name': 'registration/custom_reset_confirm.html'
+        }
