@@ -12,7 +12,7 @@ class Profile(models.Model):
         on_delete=models.CASCADE,
         verbose_name="User",
     )
-    image = models.ImageField(null=True, blank=True, upload_to="images/owners")
+    imageURL = models.TextField(blank=True, null=True)
     phone = models.CharField(max_length=20)
     bio = models.TextField()
 
@@ -28,7 +28,7 @@ class Dog(models.Model):
     birthday = models.DateField()
     anniversary = models.DateField(auto_now_add=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    image = models.ImageField(null=True, blank=True, upload_to="images/dog-profiles")
+    imageURL = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.name + " the " + self.breed
@@ -39,7 +39,7 @@ class Dog(models.Model):
 
 class Activity(models.Model):
     name = models.CharField(max_length=255)
-
+    imageURL = models.TextField(blank=True, null=True)
     location = models.CharField(max_length=255)
     lat = models.DecimalField(max_digits=9, decimal_places=6)
     lng = models.DecimalField(max_digits=9, decimal_places=6)
