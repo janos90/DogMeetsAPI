@@ -66,21 +66,27 @@ class attendEvent(APIView):
         activity_id = request.data["activity_id"]
         user = User.objects.get(id=userid)
         activity = Activity.objects.get(id=activity_id)
-        if activity.participants.add(user):
-            if user.email:
-                send_mail(
-                    'New activity',
-                    'This is a message to confirm that ' + user.first_name + ' has been added to a new activity.',
-                    'lsong@unitec.ac.nz',
-                    [user.email],
-                    fail_silently=False
-                )
+        dogs = Dog.objects.filter(owner=userid)
 
-            activity.save()
+        activity.participants.add(user)
+        activity.dogs.add(*dogs)
 
-            return Response(status=HTTP_200_OK)
+        activity.save()
 
-        return Response(status=HTTP_400_BAD_REQUEST)
+        return Response(status=HTTP_200_OK)
+        #
+        # if activity.participants.add(user):
+        #     if user.email:
+        #         # send_mail(
+        #         #     'New activity',
+        #         #     'This is a message to confirm that ' + user.first_name + ' has been added to a new activity.',
+        #         #     'lsong@unitec.ac.nz',
+        #         #     [user.email],
+        #         #     fail_silently=False
+        #         # )
+        #
+        #
+        # return Response(status=HTTP_400_BAD_REQUEST)
 
 
 class disAttendEvent(APIView):
@@ -88,21 +94,30 @@ class disAttendEvent(APIView):
     permission_classes = (IsAuthenticated,)
 
     def patch(self, request):
+
         userid = request.data["user_id"]
         activity_id = request.data["activity_id"]
         user = User.objects.get(id=userid)
         activity = Activity.objects.get(id=activity_id)
-        if activity.participants.remove(user):
-            if user.email:
-                send_mail(
-                    'New activity',
-                    'This is a message to confirm that ' + user.first_name + ' has been added to a new activity.',
-                    'lsong@unitec.ac.nz',
-                    [user.email],
-                    fail_silently=False
-                )
-            activity.save()
+        dogs = Dog.objects.all(owner=userid)
+        print(activity.participants)
 
-            return Response(status=HTTP_200_OK)
+        activity.participants.remove(user)
+        activity.dogs.remove(*dogs)
+        print('hello')
+        print(activity.participants)
+        activity.save()
+        return Response(status=HTTP_200_OK)
 
-        return Response(status=HTTP_400_BAD_REQUEST)
+        # if activity.participants.remove(user):
+        #     if user.email:
+        #         # send_mail(
+        #         #     'New activity',
+        #         #     'This is a message to confirm that ' + user.first_name + ' has been added to a new activity.',
+        #         #     'lsong@unitec.ac.nz',
+        #         #     [user.email],
+        #         #     fail_silently=False
+        #         # )
+        #
+        #
+        # return Response(status=HTTP_400_BAD_REQUEST)
